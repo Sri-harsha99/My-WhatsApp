@@ -10,14 +10,15 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data        
-@Document("User")       
-public class User {
+@Document("Message")       
+public class Message {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId _id;
-    private String email;
-    private String password;
-    private String city;
-    private String name;
-    private String otp;
+    private String from;
+    private String to;
+    private String data;
+    private String time;
+    private Boolean edited;
+    private String type;
 }

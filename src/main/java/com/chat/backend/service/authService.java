@@ -1,34 +1,21 @@
 package com.chat.backend.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Map;
+
 import com.chat.backend.model.User;
 
-@Service
-public class authService {
+public interface authService {
+
+    public User loginUser(Map<String,String> user);
+    public User signUp(User user);
+    public String forgotPassword1(String email);
+    public String forgotPassword2(String email,String otp);
+    public User forgotPassword3(String email,String password);
     
-    User temp = new User(0, "Harsha", "sriharsha852@gmail.com", "password", "Dallas");
-
-    public User login(User user){
-        System.out.println(user.name);
-        return temp;
-    }
-    
-    
-    public User signUp(User user){
-        
-        System.out.println("in login service");
-        return temp;
-    }
-
-    public String forgotPassword(){
-
-        return "Password has been sent to your mail";
-    }
-
-    public User otpVerify(){
-        System.out.println("in login service");
-        
-        return temp;
-    }
+    // public InstantProduct getInstantProductById(String instantProductId);
+    // public InstantProduct createInstantProduct(InstantProduct instantProduct,Boolean checkDuplicate);
+    // public InstantProduct updateInstantProduct(Map<String,Object> instantProduct);
+    // public Boolean deleteInstantProduct(Map<String,Object> instantProduct);
 
 }
