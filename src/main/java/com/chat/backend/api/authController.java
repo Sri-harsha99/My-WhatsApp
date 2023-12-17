@@ -39,7 +39,7 @@ public class authController {
     
     @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public User userLogin(@RequestHeader HttpHeaders headers,@RequestParam Map<String,String> paramMap){
+    public User userLogin(@RequestHeader HttpHeaders headers,@RequestBody Map<String,String> paramMap){
         LOG.info("Saving user.");
         User res = authService.loginUser(paramMap);
         System.out.println(res);

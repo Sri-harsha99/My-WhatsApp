@@ -17,6 +17,9 @@ const io = require("socket.io")(server, {
   }
 });
 
+
+
+
 const url = 'mongodb://localhost:27017';
 const dbName = 'chat';
 let db;
@@ -29,23 +32,25 @@ app.get('/test', (req, res) => {
 });
 
 
-// app.get('/currentProducts', (req, res) => {
-//   console.log('test');
-//   res.jsonp([{ id:1,name:'Shoes',type:['clothing'],color:['blue'] },
-//            { id:2,name:'Shirt',type:['clothing'],color:['black'] },
-//            { id:3,name:'Laptop',type:['electronics']},
-//            { id:4,name:'TV',type:['electronics']},
-//            { id:5,name:'Laptop',type:['electronics']}]);
-// });
+const { Kafka } = require('kafkajs');
 
-// app.get('/archivedProducts', (req, res) => {
-//   console.log('test2');
-//   res.json([{ id:1,name:'Chair',type:['home'],color:['blue'] },
-//            { id:2,name:'table',type:['home'],color:['orange'] },
-//            { id:3,name:'scarf',type:['clothing']},
-//            { id:4,name:'cabinet',type:['home']},
-//            { id:5,name:'books',type:['education']}]);
-// });
+const kafka = new Kafka({
+  clientId: 'node-producer',
+  brokers: ['localhost:9092'], // Replace with your Kafka broker address
+});
+
+const producer = kafka.producer();
+
+const produceMessage = async () => {
+  await producer.connect();
+  await producer.send({
+    topic: 'example-topic',
+    messages: [{ value: 'Hello from Node.js!' }],
+  });
+  await producer.disconnect();
+};
+
+produceMessage();
 
 
 io.on('connection', socket => {
@@ -85,6 +90,3 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-
-
-

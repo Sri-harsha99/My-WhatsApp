@@ -17,8 +17,9 @@ public class Message {
     private ObjectId _id;
     private String from;
     private String to;
-    private String data;
+    private String msg;
     private String time;
     private Boolean edited;
     private String type;
+    private String fromName;
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.chat.backend.model.Message;
 import com.chat.backend.model.User;
 import com.chat.backend.service.chatService;
-
+import com.chat.backend.model.Recent;
 @RestController
 @RequestMapping(value = "/")
 public class chatController {
@@ -50,6 +50,12 @@ public class chatController {
     @RequestMapping("/searchUsers")
     public List<User> searchUsers(@RequestBody Map<String,String> paramMap){
         return chatService.searchUsers(paramMap);
+    }
+
+    @CrossOrigin
+    @RequestMapping("/getRecent")
+    public List<Recent> getRecent(@RequestBody Map<String,String> paramMap){
+        return chatService.getRecent(paramMap);
     }
 
     // @CrossOrigin

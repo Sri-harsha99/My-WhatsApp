@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chat.backend.model.Message;
+import com.chat.backend.model.Recent;
 import com.chat.backend.model.User;
 
 public interface chatService {
@@ -14,6 +15,7 @@ public interface chatService {
     // public String liveChat(Map<String,String> paramMap);
     // public String searchMessages(Map<String,String> paramMap);
     public List<User> searchUsers(Map<String,String> paramMap);
+    public List<Recent> getRecent(Map<String,String> paramMap);
     
     // public Message editMessage(Map<String,String> paramMap);
 
