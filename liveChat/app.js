@@ -9,13 +9,13 @@ const config = require("./kafka-prop.json");
 
 
 const app = express();
-app.use(cors({ origin: ['http://127.0.0.1:5173','http://localhost:5173'] }));
+app.use(cors({ origin: ['http://127.0.0.1:5173','http://localhost:5173','https://whatsapp-harsha.onrender.com'] }));
 
 const server = http.createServer(app);
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: ["http://127.0.0.1:5173","http://localhost:5173"],
+    origin: ["http://127.0.0.1:5173","http://localhost:5173","https://whatsapp-harsha.onrender.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }
