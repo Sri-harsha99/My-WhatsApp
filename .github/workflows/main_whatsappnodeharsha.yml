@@ -57,5 +57,5 @@ jobs:
         with:
           app-name: 'whatsappNodeHarsha'
           slot-name: 'Production'
-          package: .liveChat/
+          package: liveChat/*
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_80F84FDBDF1E41EDB1855B8AE16C78DB }}
