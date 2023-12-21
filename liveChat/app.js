@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
 
   socket.on('initial', (user) => {
       console.log('Message from client:', user);
+      user = JSON.parse(user);
       connectedUsers[user.email] = {user:user,socket:socket};
   });
 
@@ -38,6 +39,7 @@ io.on('connection', (socket) => {
     const recipientSocket = io.sockets.sockets[recipientSocketId];
 
     if (recipientSocket) {
+        console.log('byr')
         recipientSocket.emit('messageFromServer', `Private message: ${message}`);
     } else {
         console.log('Recipient not found');
@@ -45,56 +47,12 @@ io.on('connection', (socket) => {
   });
 });
 
-function notifyUser(socket, recipientSocketId, message) {
-  socket.emit('notify', { message });
-}
-
-
-
-const url = 'mongodb://localhost:27017';
-const dbName = 'chat';
-let db;
-
 let users = {};
 
 app.get('/test', (req, res) => {
   console.log('test');
   res.json({ message: "success" });
 });
-
-
-// const { Kafka } = require('kafkajs');
-
-// const kafka = new Kafka({
-//     clientId: 'your-client-id',
-//     brokers: ['localhost:9092'],
-// });
-
-// const consumer = kafka.consumer({ groupId: 'your-group-id' });
-
-// const runConsumer = async () => {
-//     await consumer.connect();
-//     await consumer.subscribe({ topic: 'notification', fromBeginning: true });
-
-//     await consumer.run({
-//         eachMessage: async ({ topic, partition, message }) => {
-//           const jsonMessage = message.value.toString();
-          
-//           const toMatch = jsonMessage.match(/to=([^,]+)/);
-//           const toData = toMatch ? toMatch[1] : null;
-          
-//           console.log(toData);
-//           console.log(connectedUsers);
-
-//           notifyUser(connectedUsers[toData],'pull')
-//         }
-//     });
-// };
-
-// runConsumer().catch(console.error);
-
-
-
 
 config["group.id"] = "node-group";
 const consumer = new Kafka.KafkaConsumer(config, {"auto.offset.reset": "earliest" });
@@ -105,6 +63,28 @@ consumer.on("ready", () => {
 }).on("data", (message) => {
     console.log("Consumed message", message);
     console.log(message.value.toString('utf-8'));
+    let kafkaMessage = message.value.toString('utf-8');
+
+    const keyValuePairs = kafkaMessage.match(/(\w+)=([\w@.\s]+|"[^"]*")/g);
+
+    // Construct an object from the key-value pairs
+    const messageObject = {};
+    keyValuePairs.forEach((pair) => {
+      const [key, value] = pair.split('=');
+      messageObject[key] = value.replace(/^"(.*)"$/, '$1');
+    });
+    
+    const { _id, from, to, msg, time, edited, type, fromName } = messageObject;
+    console.log(to,from,msg)
+    console.log(connectedUsers)
+    if (connectedUsers[to]) {
+      const userSocket = connectedUsers[to].socket;
+      
+      userSocket.emit('notify', { msg,from });
+    } else {
+      console.log('User not connected');
+    }
+
 });
 
 

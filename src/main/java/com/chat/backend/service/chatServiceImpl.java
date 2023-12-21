@@ -71,7 +71,7 @@ public class chatServiceImpl implements chatService {
 
         List<Recent> existingDoc = recentRepository.find(query);
 
-        if (existingDoc != null) {
+        if (existingDoc.size() != 0) {
             Update update = new Update()
                     .set("msg", msg.getMsg())
                     .set("time", msg.getTime());
@@ -91,7 +91,7 @@ public class chatServiceImpl implements chatService {
 
         existingDoc = recentRepository.find(query);
 
-        if (existingDoc != null) {
+        if (existingDoc.size() != 0) {
             Update update = new Update()
                     .set("msg", msg.getMsg())
                     .set("time", msg.getTime());
