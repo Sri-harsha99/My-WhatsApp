@@ -4,5 +4,5 @@
 "security.protocol":"SASL_SSL",
 "sasl.mechanisms":"PLAIN",
 "sasl.username":"3PC5YBDAMRFCCIZ6",
-"sasl.password":"${process.env.KAFKA_SECRET}"
+"sasl.password":"vah3cpZ2xYHkD8dWfFsCYKNpsyu5ir7+iqY6bu0Uh/Mo/wc2Opv64KIMA5JY0GcM"
 }

@@ -7,7 +7,6 @@ const cors = require('cors');
 const Kafka = require("node-rdkafka");
 const config = require("./kafka-prop.json");
 
-config['sasl.password'] = process.env.KAFKA_SECRET;
 
 const app = express();
 app.use(cors({ origin: ['http://127.0.0.1:5173','http://localhost:5173','https://whatsapp-harsha.onrender.com'] }));
@@ -27,7 +26,7 @@ const connectedUsers = {};
 io.on('connection', (socket) => {
   console.log('Client connected');
 
-  socket.emit('messageFromServer', 'Hello, client,!'+socket._id);
+  socket.emit('messageFromServer', 'Hello, client!');
 
   socket.on('initial', (user) => {
       console.log('Message from client:', user);
@@ -81,7 +80,7 @@ consumer.on("ready", () => {
     if (connectedUsers[to]) {
       const userSocket = connectedUsers[to].socket;
       
-      userSocket.emit('notify', { msg,to });
+      userSocket.emit('notify', { msg,from });
     } else {
       console.log('User not connected');
     }
