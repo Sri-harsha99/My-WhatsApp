@@ -13,10 +13,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      KAFKA_SECRET: ${{ secrets.KAFKA_SECRET }}
-
-
     steps:
       - uses: actions/checkout@v4
 
