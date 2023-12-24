@@ -22,4 +22,5 @@ public class Message {
     private Boolean edited;
     private String type;
     private String fromName;
+    private String toName;
 }

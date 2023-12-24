@@ -99,7 +99,7 @@ public class chatServiceImpl implements chatService {
             recentRepository.update(query, update);
             System.out.println("done1");
         } else {
-            Recent newData = new Recent(msg.getMsg(), msg.getTime(), msg.getFrom(), msg.getFromName(), msg.getTo());
+            Recent newData = new Recent(msg.getMsg(), msg.getTime(), msg.getFrom(), msg.getToName(), msg.getTo());
             recentRepository.create(newData);
 
             System.out.println("done");
