@@ -7,8 +7,6 @@ const cors = require('cors');
 const Kafka = require("node-rdkafka");
 const config = require("./kafka-prop.json");
 
-config['sasl.password'] = process.env.KAFKA_SECRET;
-
 const app = express();
 app.use(cors({ origin: ['http://127.0.0.1:5173','http://localhost:5173','https://whatsapp-harsha.onrender.com'] }));
 
